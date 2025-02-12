@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/aac-app/static/css/main.972251d5.css",
+    "main.js": "/aac-app/static/js/main.6ec20ccf.js",
+    "static/js/488.93253842.chunk.js": "/aac-app/static/js/488.93253842.chunk.js",
+    "index.html": "/aac-app/index.html",
+    "main.972251d5.css.map": "/aac-app/static/css/main.972251d5.css.map",
+    "main.6ec20ccf.js.map": "/aac-app/static/js/main.6ec20ccf.js.map",
+    "488.93253842.chunk.js.map": "/aac-app/static/js/488.93253842.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.972251d5.css",
+    "static/js/main.6ec20ccf.js"
+  ]
+}
