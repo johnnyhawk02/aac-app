@@ -10,15 +10,16 @@ const WordDisplay = ({ processedWords, speakWord, options }) => {
           onClick={() => speakWord(wordObj.text)}
         >
           <img
-            src={`${process.env.PUBLIC_URL}/images/symbols/${wordObj.text[0]}/${wordObj.text}.jpg`}
+            src={`/images/symbols/${wordObj.text[0]}/${wordObj.text}.jpg`} // Remove process.env.PUBLIC_URL
             alt={wordObj.text}
             className="word-symbol"
             onError={(e) => {
               e.target.onerror = null;
-              e.target.src = `${process.env.PUBLIC_URL}/images/blank.jpg`;
+              e.target.src = "/images/blank.jpg";
             }}
             style={{ width: `${options.imageSize}px`, height: `${options.imageSize}px` }}
           />
+
           <div
             className="word-text"
             style={{ fontSize: `${options.fontSize}px` }}  // Apply font size here
