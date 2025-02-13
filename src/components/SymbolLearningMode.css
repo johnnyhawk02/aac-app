@@ -1,0 +1,77 @@
+.learning-mode-container {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .learning-mode-container h2 {
+    color: #007acc;
+    margin-bottom: 15px;
+  }
+  
+  .scoreboard {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .symbol-question {
+    margin-bottom: 20px;
+  }
+  
+  .learning-symbol {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 15px;
+  }
+  
+  .options-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+  
+  .option-button {
+    background-color: #007acc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .option-button:hover {
+    background-color: #005fa3;
+    transform: scale(1.05);
+  }
+  
+  .feedback {
+    margin-top: 15px;
+    font-size: 1.1rem;
+    color: green;
+  }
+  
+  .exit-button {
+    margin-top: 20px;
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .exit-button:hover {
+    background-color: #d9363e;
+  }
+  
