@@ -19,9 +19,9 @@ const OptionsDialog = ({ options, setOptions, toggleDialog }) => {
         <label>Font Size: {options.fontSize}px</label>
         <input
           type="range"
-          min="12"
-          max="36"
-          step="2"
+          min="10"
+          max="90"  // Small to very big
+          step="1"
           value={parseInt(options.fontSize)}
           onChange={(e) => handleSliderChange('fontSize', e.target.value)}
           className="slider"
@@ -31,9 +31,9 @@ const OptionsDialog = ({ options, setOptions, toggleDialog }) => {
         <label>Image Size: {options.imageSize}px</label>
         <input
           type="range"
-          min="40"
-          max="100"
-          step="5"
+          min="20"
+          max="200"  // Small to very big
+          step="1"
           value={parseInt(options.imageSize)}
           onChange={(e) => handleSliderChange('imageSize', e.target.value)}
           className="slider"

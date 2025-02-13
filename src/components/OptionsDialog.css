@@ -1,46 +1,43 @@
-.options-dialog {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    width: 300px;
-    text-align: left;
-  }
-  
-  .options-dialog h2 {
-    margin-bottom: 15px;
-    color: #007acc;
-  }
-  
-  .options-dialog label {
-    display: block;
-    margin-bottom: 15px;
-    font-size: 1rem;
-    color: #333;
-  }
-  
-  .options-dialog select,
-  .options-dialog input[type="checkbox"] {
-    margin-left: 10px;
-  }
-  
-  .options-dialog button {
-    background-color: #007acc;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
-  }
-  
-  .options-dialog button:hover {
-    background-color: #005fa3;
-  }
-  
+.slider {
+  width: 100%;
+  margin: 15px 0;
+  -webkit-appearance: none;
+  height: 6px;
+  background: #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: background 0.3s ease;
+}
+
+.slider:hover {
+  background: #007acc;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #007acc;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #007acc;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.slider::-moz-range-thumb:hover {
+  transform: scale(1.2);
+}
