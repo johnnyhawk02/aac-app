@@ -2,6 +2,7 @@
   "name": "aac-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/", 
   "dependencies": {
     "cra-template": "1.2.0",
     "html2canvas": "^1.4.1",
@@ -16,10 +17,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "postbuild": "cp public/_redirects build/"   
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -38,8 +36,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "gh-pages": "^6.3.0"
   }
 }
