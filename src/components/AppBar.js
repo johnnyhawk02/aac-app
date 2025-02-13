@@ -1,7 +1,7 @@
 import React from 'react';
 import './AppBar.css';
 
-const AppBar = ({ handlePrint, toggleOptions, toggleLearningMode }) => {
+const AppBar = ({ handlePrint, toggleOptions, toggleLearningMode, toggleHelp }) => {
   return (
     <div className="app-bar">
       <div className="app-title">AAC Communication Board</div>
@@ -14,6 +14,9 @@ const AppBar = ({ handlePrint, toggleOptions, toggleLearningMode }) => {
         </span>
         <span className="material-icons icon-button" onClick={handlePrint} title="Print">
           print
+        </span>
+        <span className="material-icons icon-button" onClick={toggleHelp} title="Help">
+          help_outline
         </span>
       </div>
     </div>

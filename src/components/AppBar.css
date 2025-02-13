@@ -1,68 +1,41 @@
+/* App Bar Styling */
 .app-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #007acc;
-    padding: 10px 20px;
-    color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-  }
-  
-  .app-title {
-    font-size: 1.5rem;
-    font-weight: 500;
-  }
-  
-  .app-icons {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .icon-button {
-    cursor: pointer;
-    font-size: 1.8rem;
-    transition: color 0.2s ease, transform 0.2s ease;
-  }
-  
-  .icon-button:hover {
-    color: #b3e0ff;
-    transform: scale(1.1);
-  }
-  
-  .icon-button:active {
-    transform: scale(0.95);
-  }
-  
-  /* Hide App Bar when printing */
-  @media print {
-    .app-bar {
-      display: none !important;
-    }
-  }
-  
-  /* Responsive adjustments for smaller screens */
-  @media (max-width: 600px) {
-    .app-bar {
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 10px;
-    }
-  
-    .app-title {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-    }
-  
-    .app-icons {
-      gap: 15px;
-    }
-  
-    .icon-button {
-      font-size: 1.5rem;
-    }
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #007acc;
+  padding: 8px 16px;  /* Slightly reduced padding */
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.app-title {
+  font-size: 1.2rem;  /* Reduced from 1.5rem */
+  font-weight: 500;
+}
+
+.app-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;  /* Slightly tighter spacing between icons */
+}
+
+.icon-button {
+  cursor: pointer;
+  font-size: 1.4rem;  /* Reduced from 1.8rem */
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.icon-button:hover {
+  color: #b3e0ff;
+  transform: scale(1.05);  /* Reduced hover scaling */
+}
+
+.icon-button:active {
+  transform: scale(0.9);
+}

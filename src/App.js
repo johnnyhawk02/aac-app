@@ -5,21 +5,22 @@ import SentenceInput from './components/SentenceInput';
 import OptionsDialog from './components/OptionsDialog';
 import SymbolLearningMode from './components/SymbolLearningMode';
 import AppBar from './components/AppBar';
+import HelpDialog from './components/HelpDialog';  // Import HelpDialog
 
 function App() {
   const [sentence, setSentence] = useState("");
   const [processedWords, setProcessedWords] = useState([]);
   const [multiWordSymbols, setMultiWordSymbols] = useState([]);
   const [showOptions, setShowOptions] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);  // Help dialog state
   const [learningMode, setLearningMode] = useState(false);
-  const [title, setTitle] = useState("My Sentence");  // Editable title state
+  const [title, setTitle] = useState("");  // Editable title
   const [options, setOptions] = useState({
     fontSize: 'medium',
     imageSize: 'medium',
     monospaced: false,
   });
 
-  // Load multi-word symbols from JSON on initial load
   useEffect(() => {
     fetch('/multiword_symbols.json')
       .then(res => res.json())
@@ -27,7 +28,6 @@ function App() {
       .catch(err => console.error(err));
   }, []);
 
-  // Process the input sentence and display symbols in real-time
   const processInput = (input) => {
     let modSentence = input;
     multiWordSymbols.forEach(item => {
@@ -64,42 +64,39 @@ function App() {
     setProcessedWords(processed);
   };
 
-  // Handle input change and process it immediately
   const handleInputChange = (e) => {
     const input = e.target.value;
     setSentence(input);
     processInput(input);
   };
 
-  // Handle title input change
   const handleTitleChange = (e) => {
     setTitle(e.target.value);  // Update title as user types
   };
 
-  // Use speech synthesis to speak the selected word
   const speakWord = (word) => {
     const utterance = new SpeechSynthesisUtterance(word);
     window.speechSynthesis.speak(utterance);
   };
 
-  // Toggle functions for options and learning mode
   const handlePrint = () => window.print();
   const toggleOptions = () => setShowOptions(!showOptions);
   const toggleLearningMode = () => setLearningMode(!learningMode);
+  const toggleHelp = () => setShowHelp(!showHelp);  // Toggle Help dialog
 
   return (
     <div className={`App ${options.monospaced ? 'monospaced' : ''}`}>
       <AppBar 
         handlePrint={handlePrint} 
         toggleOptions={toggleOptions} 
-        toggleLearningMode={toggleLearningMode} 
+        toggleLearningMode={toggleLearningMode}
+        toggleHelp={toggleHelp}  // Add Help button functionality
       />
 
       {learningMode ? (
         <SymbolLearningMode symbolsData={multiWordSymbols} exitLearningMode={toggleLearningMode} />
       ) : (
         <div className="sentence-section">
-          {/* Sentence Input */}
           <SentenceInput sentence={sentence} onInputChange={handleInputChange} />
 
           {/* Editable Title Below Input */}
@@ -107,7 +104,7 @@ function App() {
             type="text"
             value={title}
             onChange={handleTitleChange}
-            placeholder="Enter your title here..."
+            placeholder="Type title here..."
             className="sentence-title"
           />
 
@@ -116,8 +113,14 @@ function App() {
         </div>
       )}
 
+      {/* Show Options Dialog */}
       {showOptions && (
         <OptionsDialog options={options} setOptions={setOptions} toggleDialog={toggleOptions} />
+      )}
+
+      {/* Show Help Dialog */}
+      {showHelp && (
+        <HelpDialog toggleDialog={toggleHelp} />
       )}
     </div>
   );
