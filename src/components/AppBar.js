@@ -1,23 +1,32 @@
 import React from 'react';
+import { FaPrint, FaCog, FaSearch, FaQuestionCircle } from 'react-icons/fa';
 import './AppBar.css';
 
-const AppBar = ({ handlePrint, toggleOptions, toggleLearningMode, toggleHelp }) => {
+const AppBar = ({ handlePrint, toggleOptions, toggleSearch, toggleHelp }) => {
   return (
     <div className="app-bar">
-      <div className="app-title">AAC Communication Board</div>
+      <div className="app-title">🧠 Makky</div>
+
       <div className="app-icons">
-        <span className="material-icons icon-button" onClick={toggleLearningMode} title="Learning Mode">
-          school
-        </span>
-        <span className="material-icons icon-button" onClick={toggleOptions} title="Settings">
-          settings
-        </span>
-        <span className="material-icons icon-button" onClick={handlePrint} title="Print">
-          print
-        </span>
-        <span className="material-icons icon-button" onClick={toggleHelp} title="Help">
-          help_outline
-        </span>
+        <div className="icon-button" onClick={toggleOptions} title="Settings">
+          <FaCog />
+          <div className="icon-label">Settings</div>
+        </div>
+
+        <div className="icon-button" onClick={handlePrint} title="Print">
+          <FaPrint />
+          <div className="icon-label">Print</div>
+        </div>
+
+        <div className="icon-button" onClick={toggleSearch} title="Search">
+          <FaSearch />
+          <div className="icon-label">Search</div>
+        </div>
+
+        <div className="icon-button" onClick={toggleHelp} title="Help">
+          <FaQuestionCircle />
+          <div className="icon-label">Help</div>
+        </div>
       </div>
     </div>
   );

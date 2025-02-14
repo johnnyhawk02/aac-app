@@ -1,28 +1,31 @@
-// File: SearchDialog.js
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './SearchDialog.css';
 
-
 const SearchDialog = ({ symbols, insertWord, closeDialog }) => {
-  const [query, setQuery] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const inputRef = useRef(null);
 
-  // Filter symbols where the phrase starts with the query
+  // Focus the input box when the component mounts
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
+  const handleInputChange = (e) => setSearchTerm(e.target.value.toLowerCase());
+
   const filteredSymbols = symbols.filter((symbol) =>
-    symbol?.phrase?.toLowerCase().startsWith(query.toLowerCase())
+    symbol.phrase.toLowerCase().startsWith(searchTerm)
   );
-
-  const handleSymbolClick = (symbol) => {
-    insertWord(symbol.phrase);
-    closeDialog();
-  };
 
   return (
     <div className="search-dialog">
       <input
+        ref={inputRef}
         type="text"
-        placeholder="Search for a symbol..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search symbols..."
+        value={searchTerm}
+        onChange={handleInputChange}
       />
       <div className="symbol-list">
         {filteredSymbols.length > 0 ? (
@@ -30,7 +33,7 @@ const SearchDialog = ({ symbols, insertWord, closeDialog }) => {
             <div
               key={symbol.phrase}
               className="symbol-item"
-              onClick={() => handleSymbolClick(symbol)}
+              onClick={() => insertWord(symbol.phrase.replace(/\s+/g, "_"))}
             >
               <img src={symbol.icon} alt={symbol.phrase} />
               <span>{symbol.phrase}</span>
