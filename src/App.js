@@ -43,24 +43,44 @@ function App() {
   }, []);
 
   const processInput = (input) => {
-    let modSentence = input;
-    multiWordSymbols.forEach(item => {
-      const regex = new RegExp(`\\b${item.phrase}\\b`, "gi");
-      modSentence = modSentence.replace(regex, item.phrase.replace(/ /g, "_"));
+    // Build a lookup map for all symbols (lowercase, spaces normalized)
+    const symbolMap = new Map();
+    allSymbols.forEach((s) => {
+      const normalizedPhrase = s.phrase.replace(/_/g, " ").trim().toLowerCase();
+      symbolMap.set(normalizedPhrase, s.icon);
     });
-
-    const tokens = modSentence.split(" ");
+  
+    const tokens = input.split(" ");
     const processed = tokens.map(token => {
-      const cleanToken = token.replace(/^[^\w]+|[^\w]+$/g, "").toLowerCase();
-      if (!cleanToken) return { text: token, symbol: "images/blank.jpg" };
-      const displayText = token.includes("_") ? token.replace(/_/g, " ") : token;
-      const symbol = `images/symbols/${cleanToken[0]}/${cleanToken}.jpg`;
-      return { text: displayText, symbol };
+      let cleanToken = token.replace(/^[^\w]+|[^\w]+$/g, "").toLowerCase();
+      if (!cleanToken) {
+        return { text: token, icon: "images/blank.jpg" };
+      }
+  
+      // Handle bracket syntax: word(symbol)
+      const bracketMatch = token.match(/^(.+?)\((.+?)\)$/);
+      if (bracketMatch) {
+        const displayText = bracketMatch[1];
+        const symbolWord = bracketMatch[2].replace(/_/g, " ").trim().toLowerCase();
+        const symbol = symbolMap.get(symbolWord) || "images/blank.jpg";
+  
+        console.log(`🔍 Bracketed Token: "${displayText}" → "${symbol}"`);
+        return { text: displayText, icon: symbol };
+      }
+  
+      // Convert underscores to spaces for standard lookup
+      const displayText = token.replace(/_/g, " ").trim();
+      const symbol = symbolMap.get(displayText) || "images/blank.jpg";
+  
+      console.log(`🔍 Token: "${displayText}" → "${symbol}"`);
+  
+      return { text: displayText, icon: symbol };
     });
-
+  
     setProcessedWords(processed);
   };
-
+  
+  
   const handleInputChange = (e) => {
     const input = e.target.value;
     setSentence(input);
@@ -72,11 +92,20 @@ function App() {
   };
 
   const insertWord = (word) => {
-    const updatedSentence = sentence.trim() === '' ? word : `${sentence} ${word}`;
+    let updatedSentence = sentence.trim();
+  
+    // Insert without space if the last character is '('
+    if (updatedSentence.endsWith("(")) {
+      updatedSentence += word;
+    } else {
+      updatedSentence += ` ${word}`;
+    }
+  
     setSentence(updatedSentence);
     processInput(updatedSentence);
     setShowSearch(false);
   };
+  
 
   const speakWord = (word) => {
     const utterance = new SpeechSynthesisUtterance(word);

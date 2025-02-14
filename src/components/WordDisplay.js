@@ -30,13 +30,13 @@ const WordDisplay = ({ processedWords, speakWord, options }) => {
             style={{ width: `${baseWidth}px` }}
           >
             <img
-              src={wordObj.symbol || "images/blank.jpg"}
+              src={wordObj.icon || "images/blank.jpg"}
               alt={wordObj.text}
               className="word-symbol"
               style={{ width: `${imageSize}px`, height: `${imageSize}px` }}
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.src = "images/blank.jpg";  // Fallback if symbol isn't found
+                e.target.src = "images/blank.jpg"; // Fallback if symbol isn't found
               }}
             />
             <div className="word-text" style={{ fontSize: fontSizeMap[options.fontSize] }}>

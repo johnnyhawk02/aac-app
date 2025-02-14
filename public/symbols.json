@@ -8,12 +8,12 @@
     "icon": "images/symbols/missing.jpg"
   },
   {
-    "phrase": "4x4s 0001",
-    "icon": "images/symbols/non_alpha/4x4s 0001.jpg"
+    "phrase": "4x4s_0001",
+    "icon": "images/symbols/non_alpha/4x4s_0001.jpg"
   },
   {
-    "phrase": "10ps 0001",
-    "icon": "images/symbols/non_alpha/10ps 0001.jpg"
+    "phrase": "10ps_0001",
+    "icon": "images/symbols/non_alpha/10ps_0001.jpg"
   },
   {
     "phrase": "20p",
@@ -32,8 +32,8 @@
     "icon": "images/symbols/non_alpha/10p.jpg"
   },
   {
-    "phrase": "1ps 0001",
-    "icon": "images/symbols/non_alpha/1ps 0001.jpg"
+    "phrase": "1ps_0001",
+    "icon": "images/symbols/non_alpha/1ps_0001.jpg"
   },
   {
     "phrase": "50ps",
@@ -44,8 +44,8 @@
     "icon": "images/symbols/non_alpha/1p.jpg"
   },
   {
-    "phrase": "20ps 0001",
-    "icon": "images/symbols/non_alpha/20ps 0001.jpg"
+    "phrase": "20ps_0001",
+    "icon": "images/symbols/non_alpha/20ps_0001.jpg"
   },
   {
     "phrase": "4x4s",
@@ -64,16 +64,16 @@
     "icon": "images/symbols/non_alpha/1ps.jpg"
   },
   {
-    "phrase": "50ps 0001",
-    "icon": "images/symbols/non_alpha/50ps 0001.jpg"
+    "phrase": "50ps_0001",
+    "icon": "images/symbols/non_alpha/50ps_0001.jpg"
   },
   {
     "phrase": "20ps",
     "icon": "images/symbols/non_alpha/20ps.jpg"
   },
   {
-    "phrase": "2ps 0001",
-    "icon": "images/symbols/non_alpha/2ps 0001.jpg"
+    "phrase": "2ps_0001",
+    "icon": "images/symbols/non_alpha/2ps_0001.jpg"
   },
   {
     "phrase": "5ps",
@@ -84,8 +84,8 @@
     "icon": "images/symbols/non_alpha/2ps.jpg"
   },
   {
-    "phrase": "5ps 0001",
-    "icon": "images/symbols/non_alpha/5ps 0001.jpg"
+    "phrase": "5ps_0001",
+    "icon": "images/symbols/non_alpha/5ps_0001.jpg"
   },
   {
     "phrase": "5p",
