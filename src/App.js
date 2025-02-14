@@ -94,17 +94,19 @@ function App() {
   const insertWord = (word) => {
     let updatedSentence = sentence.trim();
   
-    // Insert word and close the bracket if the last character is '('
+    // Insert word and close the bracket if needed
     if (updatedSentence.endsWith("(")) {
       updatedSentence += word + ")";
     } else {
-      updatedSentence += (updatedSentence === "" ? "" : " ") + word;
+      // Insert without a space if the input is empty
+      updatedSentence += updatedSentence === "" ? word : ` ${word}`;
     }
   
     setSentence(updatedSentence);
     processInput(updatedSentence);
     setShowSearch(false);
   };
+  
   
   
 
