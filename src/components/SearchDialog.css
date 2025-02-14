@@ -1,0 +1,85 @@
+/* File: SearchDialog.css */
+.search-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 2px solid #007acc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    width: 300px;
+  }
+  
+  .search-dialog input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .symbol-list {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .symbol-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+  }
+  
+  .symbol-item:hover {
+    background-color: #e0f7ff;
+  }
+  
+  .symbol-item img {
+    width: 50px;  /* Adjust symbol width */
+    height: 50px; /* Adjust symbol height */
+    object-fit: contain; /* Ensure images aren't distorted */
+  }
+  
+  .symbol-item span {
+    font-size: 1rem;
+  }
+  
+  .no-results {
+    text-align: center;
+    color: #999;
+    margin-top: 20px;
+  }
+  
+  /* 🔍 Ensure the search dialog doesn't stretch images */
+.symbol-list {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .symbol-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+  }
+  
+  .symbol-item img {
+    width: 40px !important;
+    height: 40px !important;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  
+  .symbol-item span {
+    font-size: 1rem;
+    color: #333;
+    text-align: left;
+  }
+  

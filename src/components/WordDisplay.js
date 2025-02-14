@@ -4,20 +4,19 @@ const WordDisplay = ({ processedWords, speakWord, options }) => {
   const fontSizeMap = {
     small: '0.8rem',
     medium: '1rem',
-    large: '1.2rem',
+    large: '1.9rem',
   };
 
   const imageSizeMap = {
     small: 40,
     medium: 50,
-    large: 60,
+    large: 280,
   };
 
   return (
-    <div className={`sentence-display ${options.monospaced ? 'monospaced' : ''}`}>
+    <div className="sentence-display">
       {processedWords.map((wordObj, idx) => {
-        const wordLength = wordObj.text.length;
-        const baseWidth = options.monospaced ? 100 : Math.max(50, wordLength * 12);
+        const baseWidth = wordObj.text.length * parseInt(getComputedStyle(document.documentElement).getPropertyValue('--font-size')) + 30;
         const imageSize = imageSizeMap[options.imageSize];
 
         return (

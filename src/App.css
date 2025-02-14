@@ -110,16 +110,12 @@
 
 /* Word container proportional width adjustments */
 .word-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #f9f9f9;
-  border-radius: 8px;
+  min-width: max(100px, calc(var(--font-size) * 2));
   padding: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  cursor: pointer;
-  transition: transform 0.2s, width 0.3s ease;
-  min-width: 50px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s;
 }
 
 .word-container:hover {
@@ -259,10 +255,12 @@
 
   .sentence-display {
     display: flex;
-    justify-content: flex-start;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: calc(var(--font-size) / 2);
+    justify-content: center;
+    align-items: flex-end; /* Aligns symbol bottoms */
   }
+  
 }
 
 /* Responsive Design */
@@ -285,6 +283,17 @@
     width: 40px;
     height: 40px;
   }
+/* 🔍 Constrain only search dialog images */
+.search-dialog .symbol-item img {
+  height: 40px !important;
+  width: auto !important;
+  object-fit: contain;
+  display: block;
+  max-height: 40px;
+}
+
+
+
 
   h1 {
     font-size: 2rem;

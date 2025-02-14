@@ -32,16 +32,6 @@ const OptionsDialog = ({ options, setOptions, toggleDialog }) => {
         </select>
       </label>
 
-      <label>
-        Monospaced Layout:
-        <input
-          type="checkbox"
-          name="monospaced"
-          checked={options.monospaced}
-          onChange={handleChange}
-        />
-      </label>
-
       <button onClick={toggleDialog}>Close</button>
     </div>
   );
