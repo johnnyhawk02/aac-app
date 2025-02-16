@@ -1,6 +1,7 @@
 // File: AppBar.js
 import React, { useRef } from 'react';
 import {
+  FaSearch,
   FaCog,
   FaQuestionCircle,
   FaTimesCircle, // Changed icon for remove image
@@ -50,6 +51,10 @@ const AppBar = ({
     <div className="app-bar">
       <div className="app-header-row">
         <div className="left-icons">
+        <div className="icon-button" onClick={toggleSearch} title="Search Symbol">
+            <FaSearch />
+            <div className="icon-label">Search Symbol</div>
+          </div>
           <div className="icon-button" onClick={handleFileInputClick} title="Import Image">
             <FaFileUpload />
             <div className="icon-label">Import Image</div>
