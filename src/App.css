@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
-/* Main container */
+/* Global App styles */
 .App {
   font-family: 'Roboto', sans-serif;
   background: linear-gradient(to bottom, #f0f4f8 0%, #d9e2ec 100%);
@@ -11,46 +11,37 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* App Bar Styling */
-.app-bar {
+/* Container for side app bar and main page */
+.app-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #007acc;
-  padding: 10px 20px;
-  color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  max-width: 800px;  /* Match the width of the sentence section */
-  margin: 0 auto;    /* Center the app bar */
+  flex-direction: row;
+  width: 100%;
+  max-width: 1200px; /* Adjust as needed */
+  margin: 0 auto;
 }
 
-.app-title {
-  font-size: 1.5rem;
-  font-weight: 500;
+/* Side AppBar (left column) - occupies 1/3 or 50% as desired */
+.side-app-bar {
+  width: 50%;
+  padding-right: 20px;
+  box-sizing: border-box;
 }
 
-.app-icons {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+/* Main page (right column) */
+.main-page {
+  width: 50%;
+  padding-left: 20px;
+  box-sizing: border-box;
 }
 
-.icon-button {
-  cursor: pointer;
-  font-size: 1.8rem;
-  transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.icon-button:hover {
-  color: #b3e0ff;
-  transform: scale(1.1);
-}
-
-.icon-button:active {
-  transform: scale(0.95);
+/* Sentence Section Styling (main page content) */
+.sentence-section {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 800px;
+  margin: 20px auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Editable Title Styling */
@@ -63,7 +54,7 @@
   padding: 10px;
   background: transparent;
   color: #333;
-  border: none;  /* No blue line */
+  border: none;
   box-shadow: none;
 }
 
@@ -71,17 +62,7 @@
   outline: none;
 }
 
-/* Sentence Section Styling */
-.sentence-section {
-  background: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  max-width: 800px;  /* Match width of app bar */
-  margin: 20px auto; /* Center the section and align with app bar */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* Input styles */
+/* Sentence Input Styles */
 .sentence-input {
   width: 100%;
   padding: 12px;
@@ -99,7 +80,19 @@
   outline: none;
 }
 
-/* Display tokens */
+/* Container for SentenceInput inside the AppBar */
+.app-sentence-input {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.app-sentence-input .sentence-input {
+  width: 90% !important;
+}
+
+/* Container for displaying tokens (symbol sentence) */
 .sentence-display {
   margin-top: 20px;
   display: flex;
@@ -108,7 +101,7 @@
   justify-content: center;
 }
 
-/* Word container proportional width adjustments */
+/* Word container styling */
 .word-container {
   min-width: max(100px, calc(var(--font-size) * 2));
   padding: 8px;
@@ -122,13 +115,13 @@
   transform: translateY(-3px);
 }
 
-/* Monospaced layout: fixed width */
+/* Monospaced layout */
 .monospaced .word-container {
   min-width: 100px;
   text-align: center;
 }
 
-/* Word symbol and text */
+/* Word symbol and text styling */
 .word-symbol {
   width: 50px;
   height: 50px;
@@ -144,7 +137,7 @@
   color: #333;
 }
 
-/* Options Dialog */
+/* Options Dialog Styling */
 .options-dialog {
   position: fixed;
   top: 50%;
@@ -154,7 +147,7 @@
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
+  z-index: 1200;
   width: 300px;
   text-align: left;
 }
@@ -172,7 +165,8 @@
 }
 
 .options-dialog select,
-.options-dialog input[type="checkbox"] {
+.options-dialog input[type="checkbox"],
+.options-dialog input[type="range"] {
   margin-left: 10px;
 }
 
@@ -191,7 +185,7 @@
   background-color: #005fa3;
 }
 
-/* Background overlay when options dialog is open */
+/* Background overlay for Options Dialog */
 .options-overlay {
   position: fixed;
   top: 0;
@@ -199,10 +193,77 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
-  z-index: 999;
+  z-index: 1190;
+}
+
+/* AppBar (side AppBar) Styling */
+.app-bar {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to right, #007acc, #005fa3);
+  padding: 10px 20px;
+  color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-radius: 10px;
+}
+
+/* Header row in AppBar */
+.app-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+/* Left and right icon groups in AppBar */
+.left-icons,
+.right-icons {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.icon-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.6rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+  text-align: center;
+}
+
+.icon-button:hover {
+  color: #b3e0ff;
+  transform: translateY(-3px);
+}
+
+.icon-button:active {
+  transform: scale(0.95);
+}
+
+.icon-label {
+  margin-top: 5px;
+  font-size: 0.75rem;
+}
+
+/* Print Content Container */
+.print-content {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
 }
 
 /* Print-specific styles */
+@page {
+  margin: 0;
+}
+
 @media print {
   body, .App {
     background: white;
@@ -210,11 +271,27 @@
     margin: 0;
     padding: 0;
   }
-
-  .app-bar, .sentence-input, .options-button, .options-dialog {
+  
+  /* Hide the side app bar for printing */
+  .side-app-bar {
     display: none !important;
   }
-
+  
+  /* Expand main page to full width for print */
+  .main-page {
+    width: 100% !important;
+    padding-left: 0 !important;
+  }
+  
+  .app-container {
+    display: block;
+  }
+  
+  /* Hide interactive elements not needed for print */
+  .app-bar, .sentence-input, .options-dialog {
+    display: none !important;
+  }
+  
   .sentence-title {
     font-size: 2rem;
     font-weight: bold;
@@ -223,44 +300,17 @@
     margin-bottom: 15px;
     color: #000;
   }
-
+  
   .sentence-section {
     box-shadow: none;
     border: none;
     background: none;
     padding: 0;
   }
-
-  .word-container {
-    background: none;
-    box-shadow: none;
-    border: none;
-    padding: 0;
-    margin: 0 10px;
-    cursor: default;
-  }
-
-  .word-symbol {
-    width: 50px;
-    height: auto;
-    margin-bottom: 3px;
-  }
-
-  .word-text {
-    font-size: 1rem;
-    color: #000;
-    font-weight: normal;
-    text-align: center;
-  }
-
-  .sentence-display {
-    display: flex;
-    flex-wrap: wrap;
-    gap: calc(var(--font-size) / 2);
-    justify-content: center;
-    align-items: flex-end; /* Aligns symbol bottoms */
-  }
   
+  .word-container {
+    page-break-inside: avoid;
+  }
 }
 
 /* Responsive Design */
@@ -269,32 +319,29 @@
     max-width: 100%;
     padding: 15px;
   }
-
+  
   .sentence-title {
     font-size: 1.3rem;
   }
-
+  
   .word-container {
     min-width: 60px;
     padding: 6px;
   }
-
+  
   .word-symbol {
     width: 40px;
     height: 40px;
   }
-/* 🔍 Constrain only search dialog images */
-.search-dialog .symbol-item img {
-  height: 40px !important;
-  width: auto !important;
-  object-fit: contain;
-  display: block;
-  max-height: 40px;
-}
-
-
-
-
+  
+  .search-dialog .symbol-item img {
+    height: 40px !important;
+    width: auto !important;
+    object-fit: contain;
+    display: block;
+    max-height: 40px;
+  }
+  
   h1 {
     font-size: 2rem;
   }

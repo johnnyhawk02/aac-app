@@ -1,0 +1,22 @@
+/* File: SentenceInput.css */
+
+/* Default styling for the sentence input textarea */
+.sentence-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+    margin-bottom: 10px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .sentence-input:focus {
+    border-color: #007acc;
+    box-shadow: 0 0 5px rgba(0, 122, 204, 0.4);
+    outline: none;
+  }
+  
+ 
+  

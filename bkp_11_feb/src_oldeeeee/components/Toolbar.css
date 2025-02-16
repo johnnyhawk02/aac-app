@@ -1,0 +1,45 @@
+/* File: Toolbar.css */
+.toolbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #007acc;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin: 0 auto 20px;
+    max-width: 800px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    flex-wrap: wrap;
+  }
+  
+  .slider-group, .toggle-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .slider-group input[type="range"] {
+    width: 100px;
+  }
+  
+  .icon-buttons button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .icon-buttons button:hover {
+    transform: scale(1.2);
+  }
+  
+  @media print {
+    .toolbar {
+      display: none;
+    }
+  }
+  

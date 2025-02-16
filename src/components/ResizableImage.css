@@ -1,0 +1,27 @@
+/* File: ResizableImage.css */
+.resizable-image-container {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #ccc;
+    /* Optional: add padding or a background */
+}
+
+.resizer-handle {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    cursor: se-resize;
+    border-radius: 2px;
+}
+
+/* File: ResizableImage.css */
+/* ... your existing styles ... */
+
+@media print {
+    .resizer-handle {
+        display: none !important;
+    }
+}

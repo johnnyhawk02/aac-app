@@ -1,17 +1,17 @@
 // File: App.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import html2canvas from 'html2canvas';
 import './App.css';
 import WordDisplay from './components/WordDisplay';
-import SentenceInput from './components/SentenceInput';
 import OptionsDialog from './components/OptionsDialog';
 import SymbolLearningMode from './components/SymbolLearningMode';
 import AppBar from './components/AppBar';
 import HelpDialog from './components/HelpDialog';
-import SearchButton from './components/SearchButton';
 import SearchDialog from './components/SearchDialog';
 import ImageUpload from './components/ImageUpload';
 
 function App() {
+  // Global state declarations
   const [sentence, setSentence] = useState("");
   const [processedWords, setProcessedWords] = useState([]);
   const [multiWordSymbols, setMultiWordSymbols] = useState([]);
@@ -23,10 +23,16 @@ function App() {
   const [title, setTitle] = useState("");
   const [imageSrc, setImageSrc] = useState(null);
   const [options, setOptions] = useState({
-    fontSize: 'medium',
-    imageSize: 'medium',
+    fontSize: 60,
+    imageSize: 60,
     monospaced: false,
+    tilePadding: 10,
+    tileGap: 10,
+    imageSymbolGap: 20,
   });
+
+  // Ref for the main page container (RHS)
+  const mainPageRef = useRef(null);
 
   useEffect(() => {
     fetch('/multiword_symbols.json')
@@ -50,31 +56,34 @@ function App() {
       symbolMap.set(normalizedPhrase, s.icon);
     });
 
-    const tokens = input.split(" ");
-    const processed = tokens.map(token => {
-      let cleanToken = token.replace(/^[^\w]+|[^\w]+$/g, "").toLowerCase();
-      if (!cleanToken) {
-        return { text: token, icon: "images/blank.jpg" };
+    const lines = input.split('\n');
+    const processed = [];
+    lines.forEach((line, lineIndex) => {
+      const tokens = line.split(" ").filter(token => token.trim() !== "");
+      tokens.forEach((token) => {
+        let cleanToken = token.replace(/^[^\w]+|[^\w]+$/g, "").toLowerCase();
+        let processedToken;
+        if (!cleanToken) {
+          processedToken = { text: token, icon: "images/blank.jpg" };
+        } else {
+          const bracketMatch = token.match(/^(.+?)\((.+?)\)$/);
+          if (bracketMatch) {
+            const displayText = bracketMatch[1];
+            const symbolWord = bracketMatch[2].replace(/_/g, " ").trim().toLowerCase();
+            const symbol = symbolMap.get(symbolWord) || "images/blank.jpg";
+            processedToken = { text: displayText, icon: symbol };
+          } else {
+            const displayText = token.replace(/_/g, " ").trim();
+            const symbol = symbolMap.get(displayText.toLowerCase()) || "images/blank.jpg";
+            processedToken = { text: displayText, icon: symbol };
+          }
+        }
+        processed.push(processedToken);
+      });
+      if (lineIndex < lines.length - 1) {
+        processed.push({ type: 'newline' });
       }
-
-      const bracketMatch = token.match(/^(.+?)\((.+?)\)$/);
-      if (bracketMatch) {
-        const displayText = bracketMatch[1];
-        const symbolWord = bracketMatch[2].replace(/_/g, " ").trim().toLowerCase();
-        const symbol = symbolMap.get(symbolWord) || "images/blank.jpg";
-
-        console.log(`🔍 Bracketed Token: "${displayText}" → "${symbol}"`);
-        return { text: displayText, icon: symbol };
-      }
-
-      const displayText = token.replace(/_/g, " ").trim();
-      const symbol = symbolMap.get(displayText) || "images/blank.jpg";
-
-      console.log(`🔍 Token: "${displayText}" → "${symbol}"`);
-
-      return { text: displayText, icon: symbol };
     });
-
     setProcessedWords(processed);
   };
 
@@ -110,48 +119,70 @@ function App() {
   const toggleLearningMode = () => setLearningMode(!learningMode);
   const toggleHelp = () => setShowHelp(!showHelp);
   const toggleSearch = () => setShowSearch(!showSearch);
+  const removeImage = () => {
+    setImageSrc(null);
+  };
+
+  // Function to export main page as a high-resolution image
+  const exportMainPageAsImage = () => {
+    if (mainPageRef.current) {
+      html2canvas(mainPageRef.current, {
+        scale: 4, // Adjust scale for higher resolution
+      }).then((canvas) => {
+        const dataURL = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.href = dataURL;
+        link.download = 'exported-main-page.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    }
+  };
 
   return (
-    <div className={`App ${options.monospaced ? 'monospaced' : ''}`}>
-      <AppBar 
-        handlePrint={handlePrint}
-        toggleOptions={toggleOptions}
-        toggleLearningMode={toggleLearningMode}
-        toggleHelp={toggleHelp}
-      />
-
-      {learningMode ? (
-        <SymbolLearningMode symbolsData={multiWordSymbols} exitLearningMode={toggleLearningMode} />
-      ) : (
-        <div className="sentence-section">
-          {/* Editable Title (at the top) */}
-          <input
-            type="text"
-            value={title}
-            onChange={handleTitleChange}
-            placeholder="Type title here..."
-            className="sentence-title"
+    <div className="App">
+      <div className="app-container">
+        <div className="side-app-bar">
+          {/* Side AppBar content */}
+          <AppBar
+            handlePrint={handlePrint}
+            toggleOptions={toggleOptions}
+            toggleLearningMode={toggleLearningMode}
+            toggleHelp={toggleHelp}
+            toggleSearch={toggleSearch}
+            removeImage={removeImage}
+            setImageSrc={setImageSrc}
+            sentence={sentence}
+            onInputChange={handleInputChange}
+            onExport={exportMainPageAsImage}  
           />
-
-          {/* Sentence Input */}
-          <SentenceInput sentence={sentence} onInputChange={handleInputChange} />
-
-          {/* Search Button */}
-          <SearchButton openDialog={toggleSearch} />
-          {showSearch && (
-            <SearchDialog symbols={allSymbols} insertWord={insertWord} closeDialog={toggleSearch} />
-          )}
-
-          {/* Image Upload */}
-          <ImageUpload setImageSrc={setImageSrc} />
-
-          {/* Display Symbols */}
-          <WordDisplay processedWords={processedWords} speakWord={speakWord} options={options} />
         </div>
-      )}
-
-      {showOptions && <OptionsDialog options={options} setOptions={setOptions} toggleDialog={toggleOptions} />}
-      {showHelp && <HelpDialog toggleDialog={toggleHelp} />}
+        <div className="main-page" ref={mainPageRef}>
+          {learningMode ? (
+            <SymbolLearningMode symbolsData={multiWordSymbols} exitLearningMode={toggleLearningMode} />
+          ) : (
+            <div className="sentence-section">
+              <input
+                type="text"
+                value={title}
+                onChange={handleTitleChange}
+                placeholder="Type title here..."
+                className="sentence-title"
+              />
+              <ImageUpload imageSrc={imageSrc} />
+              {showSearch && (
+                <SearchDialog symbols={allSymbols} insertWord={insertWord} closeDialog={toggleSearch} />
+              )}
+              <div style={{ marginTop: `${options.imageSymbolGap}px` }}>
+                <WordDisplay processedWords={processedWords} speakWord={speakWord} options={options} />
+              </div>
+            </div>
+          )}
+          {showOptions && <OptionsDialog options={options} setOptions={setOptions} toggleDialog={toggleOptions} />}
+          {showHelp && <HelpDialog toggleDialog={toggleHelp} />}
+        </div>
+      </div>
     </div>
   );
 }

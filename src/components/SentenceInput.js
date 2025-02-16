@@ -1,17 +1,17 @@
+// File: SentenceInput.js
 import React from 'react';
-// import './SentenceInput.css';  // Remove this line if styles are in App.css
+import './SentenceInput.css';
 
 const SentenceInput = ({ sentence, onInputChange }) => {
   return (
-    <div>
-      <textarea
-        value={sentence}
-        onChange={onInputChange}
-        placeholder="Type a sentence here..."
-        rows="3"
-        className="sentence-input"
-      />
-    </div>
+    <textarea
+      value={sentence}
+      onChange={onInputChange}
+      placeholder="Type a sentence here..."
+      rows="3"
+      className="sentence-input"
+      style={{ width: '90%', minWidth: '300px' }}  // Inline style forces 90% width with a minimum width
+    />
   );
 };
 
