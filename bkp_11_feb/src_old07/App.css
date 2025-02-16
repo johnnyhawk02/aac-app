@@ -11,7 +11,7 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Container for side app bar and main page */
+/* Layout container: side-app-bar and main-page */
 .app-container {
   display: flex;
   flex-direction: row;
@@ -20,7 +20,7 @@
   margin: 0 auto;
 }
 
-/* Side AppBar (left column) - occupies 1/3 or 50% as desired */
+/* Side AppBar (left column) */
 .side-app-bar {
   width: 50%;
   padding-right: 20px;
@@ -41,7 +41,7 @@
   padding: 20px;
   max-width: 800px;
   margin: 20px auto;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 /* Editable Title Styling */
@@ -80,7 +80,7 @@
   outline: none;
 }
 
-/* Container for SentenceInput inside the AppBar */
+/* Ensure SentenceInput inside its container is 90% width */
 .app-sentence-input {
   margin-top: 10px;
   width: 100%;
@@ -92,7 +92,7 @@
   width: 90% !important;
 }
 
-/* Container for displaying tokens (symbol sentence) */
+/* Display Tokens (Symbol Sentence) */
 .sentence-display {
   margin-top: 20px;
   display: flex;
@@ -101,7 +101,7 @@
   justify-content: center;
 }
 
-/* Word container styling */
+/* Word container */
 .word-container {
   min-width: max(100px, calc(var(--font-size) * 2));
   padding: 8px;
@@ -121,7 +121,7 @@
   text-align: center;
 }
 
-/* Word symbol and text styling */
+/* Word symbol and text */
 .word-symbol {
   width: 50px;
   height: 50px;
@@ -196,7 +196,7 @@
   z-index: 1190;
 }
 
-/* AppBar (side AppBar) Styling */
+/* AppBar (Side AppBar) Styling */
 .app-bar {
   display: flex;
   flex-direction: column;
@@ -219,7 +219,7 @@
   flex-wrap: nowrap;
 }
 
-/* Left and right icon groups in AppBar */
+/* Left and Right icon groups */
 .left-icons,
 .right-icons {
   display: flex;
@@ -252,13 +252,6 @@
   font-size: 0.75rem;
 }
 
-/* Print Content Container */
-.print-content {
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 100%;
-}
-
 /* Print-specific styles */
 @page {
   margin: 0;
@@ -272,7 +265,7 @@
     padding: 0;
   }
   
-  /* Hide the side app bar for printing */
+  /* Hide the side app bar so only main page prints */
   .side-app-bar {
     display: none !important;
   }
@@ -283,6 +276,7 @@
     padding-left: 0 !important;
   }
   
+  /* Remove container flex layout */
   .app-container {
     display: block;
   }
@@ -296,7 +290,6 @@
     font-size: 2rem;
     font-weight: bold;
     text-align: center;
-    border: none;
     margin-bottom: 15px;
     color: #000;
   }

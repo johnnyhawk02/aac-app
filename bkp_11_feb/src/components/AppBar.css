@@ -9,8 +9,6 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  max-width: 800px;
-  margin: 0 auto;
   border-radius: 10px;
 }
 
@@ -19,7 +17,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  flex-wrap: nowrap; /* Prevent icons from wrapping onto multiple lines */
+  flex-wrap: nowrap;
 }
 
 .left-icons,
@@ -27,14 +25,17 @@
   display: flex;
   gap: 25px;
   align-items: center;
-  flex-wrap: nowrap; /* Ensure the icons in these groups stay on one line */
+  flex-wrap: nowrap;
 }
 
-.app-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  text-align: left;
+.left-icons {
+  /* Ensure left icons are aligned to the left */
+  justify-content: flex-start;
+}
+
+.right-icons {
+  /* Ensure right icons are aligned to the right */
+  justify-content: flex-end;
 }
 
 .icon-button {
@@ -61,6 +62,40 @@
   font-size: 0.75rem;
 }
 
+/* Settings panel styles */
+.settings-panel {
+  margin-top: 10px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: white;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.setting-row label {
+  flex: 1;
+}
+
+.setting-row input[type="range"] {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.setting-row span {
+  margin-left: 10px;
+}
+
+/* Sentence input container */
 .app-sentence-input {
   margin-top: 10px;
   width: 100%;
@@ -68,7 +103,6 @@
   justify-content: center;
 }
 
-/* Force the sentence input inside SentenceInput to be 90% of the AppBar's width */
 .app-sentence-input .sentence-input {
-  width: 90%;
+  width: 90% !important;
 }

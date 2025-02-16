@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import html2canvas from 'html2canvas';
 import './App.css';
 import WordDisplay from './components/WordDisplay';
-import OptionsDialog from './components/OptionsDialog';
+//import OptionsDialog from './components/OptionsDialog'; // No longer used
 import SymbolLearningMode from './components/SymbolLearningMode';
 import AppBar from './components/AppBar';
 import HelpDialog from './components/HelpDialog';
@@ -11,7 +11,6 @@ import SearchDialog from './components/SearchDialog';
 import ImageUpload from './components/ImageUpload';
 
 function App() {
-  // Global state declarations
   const [sentence, setSentence] = useState("");
   const [processedWords, setProcessedWords] = useState([]);
   const [multiWordSymbols, setMultiWordSymbols] = useState([]);
@@ -31,7 +30,6 @@ function App() {
     imageSymbolGap: 20,
   });
 
-  // Ref for the main page container (RHS)
   const mainPageRef = useRef(null);
 
   useEffect(() => {
@@ -114,7 +112,6 @@ function App() {
     window.speechSynthesis.speak(utterance);
   };
 
-  const handlePrint = () => window.print();
   const toggleOptions = () => setShowOptions(!showOptions);
   const toggleLearningMode = () => setLearningMode(!learningMode);
   const toggleHelp = () => setShowHelp(!showHelp);
@@ -123,11 +120,10 @@ function App() {
     setImageSrc(null);
   };
 
-  // Function to export main page as a high-resolution image
   const exportMainPageAsImage = () => {
     if (mainPageRef.current) {
       html2canvas(mainPageRef.current, {
-        scale: 4, // Adjust scale for higher resolution
+        scale: 4, // High resolution scale factor
       }).then((canvas) => {
         const dataURL = canvas.toDataURL('image/png');
         const link = document.createElement('a');
@@ -144,9 +140,7 @@ function App() {
     <div className="App">
       <div className="app-container">
         <div className="side-app-bar">
-          {/* Side AppBar content */}
           <AppBar
-            handlePrint={handlePrint}
             toggleOptions={toggleOptions}
             toggleLearningMode={toggleLearningMode}
             toggleHelp={toggleHelp}
@@ -155,7 +149,10 @@ function App() {
             setImageSrc={setImageSrc}
             sentence={sentence}
             onInputChange={handleInputChange}
-            onExport={exportMainPageAsImage}  
+            onExport={exportMainPageAsImage}
+            showOptions={showOptions}   // Pass showOptions flag to display settings
+            options={options}
+            setOptions={setOptions}
           />
         </div>
         <div className="main-page" ref={mainPageRef}>
@@ -179,7 +176,7 @@ function App() {
               </div>
             </div>
           )}
-          {showOptions && <OptionsDialog options={options} setOptions={setOptions} toggleDialog={toggleOptions} />}
+          {/* Render Help and other modals */}
           {showHelp && <HelpDialog toggleDialog={toggleHelp} />}
         </div>
       </div>

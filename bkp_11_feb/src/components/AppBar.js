@@ -1,26 +1,27 @@
 // File: AppBar.js
 import React, { useRef } from 'react';
 import {
-  FaPrint,
   FaCog,
   FaSearch,
   FaQuestionCircle,
   FaTrash,
   FaFileUpload,
+  FaDownload,
 } from 'react-icons/fa';
 import SentenceInput from './SentenceInput';
 import './AppBar.css';
 
 const AppBar = ({
-  handlePrint,
-  toggleOptions,
+  toggleSearch,
   toggleLearningMode,
   toggleHelp,
-  toggleSearch,
   removeImage,
   setImageSrc,
   sentence,
   onInputChange,
+  onExport,
+  options,
+  setOptions,
 }) => {
   const fileInputRef = useRef(null);
 
@@ -34,16 +35,23 @@ const AppBar = ({
       const imageUrl = URL.createObjectURL(file);
       setImageSrc(imageUrl);
     }
+    e.target.value = '';
+  };
+
+  // Handler for settings changes (for inline settings panel)
+  const handleSettingChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setOptions((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : Number(value),
+    }));
   };
 
   return (
     <div className="app-bar">
       <div className="app-header-row">
         <div className="left-icons">
-          <div className="icon-button" onClick={toggleSearch} title="Search Symbol">
-            <FaSearch />
-            <div className="icon-label">Search Symbol</div>
-          </div>
+
           <div className="icon-button" onClick={toggleLearningMode} title="Guess">
             <FaQuestionCircle />
             <div className="icon-label">Guess</div>
@@ -58,24 +66,103 @@ const AppBar = ({
           </div>
         </div>
         <div className="right-icons">
-          <div className="icon-button" onClick={toggleOptions} title="Settings">
-            <FaCog />
-            <div className="icon-label">Settings</div>
-          </div>
-          <div className="icon-button" onClick={handlePrint} title="Print">
-            <FaPrint />
-            <div className="icon-label">Print</div>
+          <div className="icon-button" onClick={onExport} title="Export">
+            <FaDownload />
+            <div className="icon-label">Export</div>
           </div>
           <div className="icon-button" onClick={toggleHelp} title="Help">
             <FaQuestionCircle />
             <div className="icon-label">Help</div>
           </div>
+          <div className="icon-button">
+            <FaCog />
+            <div className="icon-label">Settings</div>
+          </div>
         </div>
       </div>
+
+      {/* Always visible settings panel */}
+      <div className="settings-panel">
+        <div className="setting-row">
+          <label htmlFor="fontSize">Font Size:</label>
+          <select
+            id="fontSize"
+            name="fontSize"
+            value={options.fontSize}
+            onChange={handleSettingChange}
+          >
+            <option value="40">0.8rem</option>
+            <option value="60">1.0rem</option>
+            <option value="80">1.2rem</option>
+            <option value="100">1.4rem</option>
+            <option value="120">1.6rem</option>
+            <option value="140">1.8rem</option>
+          </select>
+        </div>
+        <div className="setting-row">
+          <label htmlFor="imageSize">Image Size:</label>
+          <select
+            id="imageSize"
+            name="imageSize"
+            value={options.imageSize}
+            onChange={handleSettingChange}
+          >
+            <option value="40">40px</option>
+            <option value="60">60px</option>
+            <option value="80">80px</option>
+            <option value="100">100px</option>
+            <option value="120">120px</option>
+            <option value="140">140px</option>
+          </select>
+        </div>
+        <div className="setting-row">
+          <label htmlFor="tilePadding">Tile Padding:</label>
+          <input
+            type="range"
+            id="tilePadding"
+            name="tilePadding"
+            min="0"
+            max="30"
+            step="1"
+            value={options.tilePadding}
+            onChange={handleSettingChange}
+          />
+          <span>{options.tilePadding}px</span>
+        </div>
+        <div className="setting-row">
+          <label htmlFor="tileGap">Tile Gap:</label>
+          <input
+            type="range"
+            id="tileGap"
+            name="tileGap"
+            min="0"
+            max="50"
+            step="1"
+            value={options.tileGap}
+            onChange={handleSettingChange}
+          />
+          <span>{options.tileGap}px</span>
+        </div>
+        <div className="setting-row">
+          <label htmlFor="imageSymbolGap">Image-Symbol Gap:</label>
+          <input
+            type="range"
+            id="imageSymbolGap"
+            name="imageSymbolGap"
+            min="0"
+            max="100"
+            step="1"
+            value={options.imageSymbolGap}
+            onChange={handleSettingChange}
+          />
+          <span>{options.imageSymbolGap}px</span>
+        </div>
+      </div>
+
       <div className="app-sentence-input">
         <SentenceInput sentence={sentence} onInputChange={onInputChange} />
       </div>
-      {/* Hidden file input for importing images */}
+      {/* Hidden file input */}
       <input
         type="file"
         accept="image/*"

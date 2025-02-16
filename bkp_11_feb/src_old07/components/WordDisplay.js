@@ -58,8 +58,8 @@ const WordDisplay = ({ processedWords, speakWord, options }) => {
               alt={wordObj.text}
               className="word-symbol"
               style={{
-                maxHeight: `${imageSize}px`, // fixed maximum height
-                width: 'auto',              // width adjusts naturally
+                width: `${imageSize}px`,
+                height: `${imageSize}px`,
                 objectFit: 'contain',
               }}
               onError={(e) => {
@@ -67,7 +67,6 @@ const WordDisplay = ({ processedWords, speakWord, options }) => {
                 e.target.src = "images/blank.jpg";
               }}
             />
-
             <div className="word-text" style={{ fontSize: fontSizeMap[options.fontSize] }}>
               {wordObj.text}
             </div>

@@ -1,14 +1,14 @@
 // File: App.js
-import React, { useState, useEffect, useRef } from 'react';
-import html2canvas from 'html2canvas';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import WordDisplay from './components/WordDisplay';
-import OptionsDialog from './components/OptionsDialog'; // No longer used
+import OptionsDialog from './components/OptionsDialog';
 import SymbolLearningMode from './components/SymbolLearningMode';
 import AppBar from './components/AppBar';
 import HelpDialog from './components/HelpDialog';
 import SearchDialog from './components/SearchDialog';
 import ImageUpload from './components/ImageUpload';
+import SentenceInput from './components/SentenceInput';
 
 function App() {
   const [sentence, setSentence] = useState("");
@@ -29,8 +29,6 @@ function App() {
     tileGap: 10,
     imageSymbolGap: 20,
   });
-
-  const mainPageRef = useRef(null);
 
   useEffect(() => {
     fetch('/multiword_symbols.json')
@@ -121,65 +119,44 @@ function App() {
     setImageSrc(null);
   };
 
-  const exportMainPageAsImage = () => {
-    if (mainPageRef.current) {
-      html2canvas(mainPageRef.current, {
-        scale: 4, // High resolution scale factor
-      }).then((canvas) => {
-        const dataURL = canvas.toDataURL('image/png');
-        const link = document.createElement('a');
-        link.href = dataURL;
-        link.download = 'exported-main-page.png';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      });
-    }
-  };
-
   return (
-    <div className="App">
-      <div className="app-container">
-        <div className="side-app-bar">
-          <AppBar
-            toggleOptions={toggleOptions}
-            toggleLearningMode={toggleLearningMode}
-            toggleHelp={toggleHelp}
-            toggleSearch={toggleSearch}
-            removeImage={removeImage}
-            setImageSrc={setImageSrc}
-            sentence={sentence}
-            onInputChange={handleInputChange}
-            onExport={exportMainPageAsImage}
-            showOptions={showOptions}   // Pass showOptions flag to display settings
-            options={options}
-            setOptions={setOptions}
-          />
-        </div>
-        <div className="main-page" ref={mainPageRef}>
-          {learningMode ? (
-            <SymbolLearningMode symbolsData={multiWordSymbols} exitLearningMode={toggleLearningMode} />
-          ) : (
-            <div className="sentence-section">
-              <input
-                type="text"
-                value={title}
-                onChange={handleTitleChange}
-                placeholder="Type title here..."
-                className="sentence-title"
-              />
-              <ImageUpload imageSrc={imageSrc} />
-              {showSearch && (
-                <SearchDialog symbols={allSymbols} insertWord={insertWord} closeDialog={toggleSearch} />
-              )}
-              <div style={{ marginTop: `${options.imageSymbolGap}px` }}>
-                <WordDisplay processedWords={processedWords} speakWord={speakWord} options={options} />
-              </div>
+    <div className="app-container">
+      <div className="side-app-bar">
+        <AppBar
+          handlePrint={handlePrint}
+          toggleOptions={toggleOptions}
+          toggleLearningMode={toggleLearningMode}
+          toggleHelp={toggleHelp}
+          toggleSearch={toggleSearch}
+          removeImage={removeImage}
+          setImageSrc={setImageSrc}
+          sentence={sentence}
+          onInputChange={handleInputChange}
+        />
+      </div>
+      <div className="main-page">
+        {learningMode ? (
+          <SymbolLearningMode symbolsData={multiWordSymbols} exitLearningMode={toggleLearningMode} />
+        ) : (
+          <div className="sentence-section">
+            <input
+              type="text"
+              value={title}
+              onChange={handleTitleChange}
+              placeholder="Type title here..."
+              className="sentence-title"
+            />
+            <ImageUpload imageSrc={imageSrc} />
+            {showSearch && (
+              <SearchDialog symbols={allSymbols} insertWord={insertWord} closeDialog={toggleSearch} />
+            )}
+            <div style={{ marginTop: `${options.imageSymbolGap}px` }}>
+              <WordDisplay processedWords={processedWords} speakWord={speakWord} options={options} />
             </div>
-          )}
-          {/* Render Help and other modals */}
-          {showHelp && <HelpDialog toggleDialog={toggleHelp} />}
-        </div>
+          </div>
+        )}
+        {showOptions && <OptionsDialog options={options} setOptions={setOptions} toggleDialog={toggleOptions} />}
+        {showHelp && <HelpDialog toggleDialog={toggleHelp} />}
       </div>
     </div>
   );

@@ -1,0 +1,54 @@
+/* File: OptionsDialog.css */
+
+.options-dialog {
+  position: fixed;
+  top: 0;                     /* Position at the top of the viewport */
+  left: 50%;                  /* Center horizontally */
+  transform: translateX(-50%);/* Shift left by half its width */
+  background: #fff;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1200;              /* Ensure it appears above the AppBar */
+  width: 300px;
+  text-align: left;
+}
+
+.options-dialog h2 {
+  margin-bottom: 15px;
+  color: #007acc;
+}
+
+.options-dialog label {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.options-dialog select,
+.options-dialog input[type="range"] {
+  margin-left: 10px;
+}
+
+.options-dialog input[type="range"] {
+  width: 100%;
+  margin-top: 5px;
+}
+
+.options-dialog button {
+  background-color: #007acc;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.options-dialog button:hover {
+  background-color: #005fa3;
+}
